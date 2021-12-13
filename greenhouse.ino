@@ -22,7 +22,7 @@ unsigned long wateringTime = 10000;         // 10sec
 unsigned long fanTime = 10000;              // 10sec
 
 // Desired values of temperature and soilmoisture
-float maxTemperature = 25.0;    //degrees Celsius
+float maxTemperature = 30.0;    //degrees Celsius
 float minSoilmoisture = 40.0;   //percent soil moisture
 
 //Keeping track of time
@@ -42,7 +42,7 @@ float temperature, humidity;
 bool tooHot = false;
 
 //Variables regarding soil moisture
-const int soilPin_1 = 27;
+const int soilPin = 27;
 const int pumpPin = 17;
 int soilValue = 0;
 int airValue = 2630;
@@ -58,7 +58,7 @@ PubSubClient client(espClient);
 void setup() {
 
   // pinmodes
-  pinMode(soilPin_1, INPUT);
+  pinMode(soilPin, INPUT);
   pinMode(fanPin, OUTPUT);
   pinMode(pumpPin, OUTPUT);
 
@@ -103,7 +103,7 @@ void reconnectMQTT(){
 }
 
 float getSoilPercent() {
-  soilValue = analogRead(soilPin_1);
+  soilValue = analogRead(soilPin);
   Serial.println(soilValue);
   return map(soilValue, airValue, waterValue, 0, 100);
 }
